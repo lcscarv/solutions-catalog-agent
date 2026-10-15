@@ -1,0 +1,132 @@
+[
+  {
+    "asset_type": "case_study",
+    "asset_id": "cs-001",
+    "title": "GenAI product description generator",
+    "client": "Acme Retail",
+    "industry": "Retail",
+    "solution": "Generative AI",
+    "description": "LLM pipeline that writes product descriptions for 40k SKUs with human review.",
+    "link": "https://example.com/catalog/cs-001"
+  },
+  {
+    "asset_type": "case_study",
+    "asset_id": "cs-002",
+    "title": "Demand forecasting for stores",
+    "client": "Acme Retail",
+    "industry": "Retail",
+    "solution": "Analytics",
+    "description": "Weekly demand forecast per store and category, served to planners in a dashboard.",
+    "link": "https://example.com/catalog/cs-002"
+  },
+  {
+    "asset_type": "case_study",
+    "asset_id": "cs-003",
+    "title": "Lakehouse migration",
+    "client": "Northwind Bank",
+    "industry": "Financial Services",
+    "solution": "Data Platform",
+    "description": "Migration of a legacy warehouse to a governed lakehouse with lineage.",
+    "link": "https://example.com/catalog/cs-003"
+  },
+  {
+    "asset_type": "case_study",
+    "asset_id": "cs-004",
+    "title": "Readmission risk model in production",
+    "client": "Contoso Health",
+    "industry": "Healthcare",
+    "solution": "MLOps",
+    "description": "Model registry, monitoring and retraining for a readmission risk model.",
+    "link": "https://example.com/catalog/cs-004"
+  },
+  {
+    "asset_type": "case_study",
+    "asset_id": "cs-005",
+    "title": "Predictive maintenance dashboards",
+    "client": "Fabrikam Industrial",
+    "industry": "Manufacturing",
+    "solution": "Analytics",
+    "description": "Sensor data and failure history combined into maintenance priority dashboards.",
+    "link": "https://example.com/catalog/cs-005"
+  },
+  {
+    "asset_type": "case_study",
+    "asset_id": "cs-006",
+    "title": "Field technician assistant",
+    "client": "Volt Energy",
+    "industry": "Energy",
+    "solution": "Generative AI",
+    "description": "Assistant that answers technicians from manuals and past work orders.",
+    "link": "https://example.com/catalog/cs-006"
+  },
+  {
+    "asset_type": "strategic_material",
+    "asset_id": "sm-001",
+    "title": "Generative AI sales deck",
+    "solution": "Generative AI",
+    "tags": ["sales-deck", "genai"],
+    "description": "Main deck for Generative AI opportunities: use cases, approach, references.",
+    "link": "https://example.com/catalog/sm-001"
+  },
+  {
+    "asset_type": "strategic_material",
+    "asset_id": "sm-002",
+    "title": "Data Platform first-call deck",
+    "solution": "Data Platform",
+    "tags": ["first-call", "databricks", "lakehouse"],
+    "description": "Short deck for first meetings about data platform modernization.",
+    "link": "https://example.com/catalog/sm-002"
+  },
+  {
+    "asset_type": "strategic_material",
+    "asset_id": "sm-003",
+    "title": "Data Strategy pitch for Financial Services",
+    "solution": "Data Strategy",
+    "industry": "Financial Services",
+    "tags": ["pitch", "fsi"],
+    "description": "Pitch on data strategy and governance for banks and insurers.",
+    "link": "https://example.com/catalog/sm-003"
+  },
+  {
+    "asset_type": "strategic_material",
+    "asset_id": "sm-004",
+    "title": "MLOps maturity first-call deck",
+    "solution": "MLOps",
+    "tags": ["first-call", "mlops"],
+    "description": "First meeting deck to assess MLOps maturity.",
+    "link": "https://example.com/catalog/sm-004"
+  },
+  {
+    "asset_type": "support_material",
+    "asset_id": "sp-001",
+    "title": "GenAI ROI calculator",
+    "solution": "Generative AI",
+    "description": "Spreadsheet that estimates ROI of a Generative AI use case from volume and handling time.",
+    "link": "https://example.com/catalog/sp-001"
+  },
+  {
+    "asset_type": "support_material",
+    "asset_id": "sp-002",
+    "title": "Proposal template: Data Platform",
+    "solution": "Data Platform",
+    "description": "Proposal template with scope, phases and assumptions for platform projects.",
+    "link": "https://example.com/catalog/sp-002"
+  },
+  {
+    "asset_type": "support_material",
+    "asset_id": "sp-003",
+    "title": "One-pager: Analytics for Retail",
+    "solution": "Analytics",
+    "industry": "Retail",
+    "description": "One-page summary of analytics offers for retailers.",
+    "link": "https://example.com/catalog/sp-003"
+  },
+  {
+    "asset_type": "support_material",
+    "asset_id": "sp-004",
+    "title": "MLOps assessment questionnaire",
+    "solution": "MLOps",
+    "description": "Questionnaire used before an MLOps proposal to size the gap.",
+    "link": "https://example.com/catalog/sp-004"
+  }
+]

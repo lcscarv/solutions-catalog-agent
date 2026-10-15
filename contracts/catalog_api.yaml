@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: Solutions Catalog API
+  version: 2.0.0
+  description: >-
+    Read-only search over the solutions catalog: client case studies, strategic
+    sales materials and support materials. Every filter is optional, partial and
+    case-insensitive. Results are capped by `limit`.
+
+paths:
+  /case-studies:
+    get:
+      operationId: search_case_studies
+      summary: Search client case studies
+      description: >-
+        Lists client case studies, filtered by industry and/or solution. Use it to
+        show past projects or to find the link to a case study.
+      parameters:
+        - name: industry
+          in: query
+          required: false
+          description: >-
+            Client industry. Map the user's words to one of the allowed values
+            (for example "varejo" is Retail). Leave empty if unsure.
+          schema:
+            type: string
+            enum: [Retail, Financial Services, Healthcare, Manufacturing, Energy]
+        - name: solution
+          in: query
+          required: false
+          description: Solution line delivered in the project. Leave empty if unsure.
+          schema:
+            type: string
+            enum: [Generative AI, Data Platform, Analytics, MLOps, Data Strategy]
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of items to return (1 to 25, default 10).
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Matching case studies.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: string }
+                        title: { type: string }
+                        client: { type: string }
+                        industry: { type: string }
+                        solution: { type: string }
+                        link: { type: string }
+                  count: { type: integer }
+                  total_matches: { type: integer }
+                  truncated: { type: boolean }
+        "400":
+          description: Invalid parameter.
+        "503":
+          description: Catalog unavailable. Tell the user the search failed.
+
+  /strategic-materials:
+    get:
+      operationId: search_strategic_materials
+      summary: Search sales decks, pitches and first-call decks
+      description: >-
+        Lists strategic sales materials (sales decks, pitches, first-call decks),
+        filtered by solution and/or tag.
+      parameters:
+        - name: solution
+          in: query
+          required: false
+          description: Solution line the material is about. Leave empty if unsure.
+          schema:
+            type: string
+            enum: [Generative AI, Data Platform, Analytics, MLOps, Data Strategy]
+        - name: tag
+          in: query
+          required: false
+          description: >-
+            Free-text tag, matched partially. Examples: first-call, sales-deck,
+            pitch, databricks.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of items to return (1 to 25, default 10).
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Matching strategic materials.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: string }
+                        title: { type: string }
+                        solution: { type: string }
+                        industry: { type: string }
+                        tags: { type: array, items: { type: string } }
+                        link: { type: string }
+                  count: { type: integer }
+                  total_matches: { type: integer }
+                  truncated: { type: boolean }
+        "400":
+          description: Invalid parameter.
+        "503":
+          description: Catalog unavailable. Tell the user the search failed.
+
+  /support-materials:
+    get:
+      operationId: search_support_materials
+      summary: Search ROI calculators, proposal templates and one-pagers
+      description: >-
+        Lists support materials (ROI calculators, proposal templates, one-pagers,
+        questionnaires), filtered by solution and/or a free-text query over the
+        title and description.
+      parameters:
+        - name: solution
+          in: query
+          required: false
+          description: Solution line the material supports. Leave empty if unsure.
+          schema:
+            type: string
+            enum: [Generative AI, Data Platform, Analytics, MLOps, Data Strategy]
+        - name: query
+          in: query
+          required: false
+          description: >-
+            Free text matched partially against title and description. Examples:
+            ROI, proposal, one-pager.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of items to return (1 to 25, default 10).
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Matching support materials.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: string }
+                        title: { type: string }
+                        solution: { type: string }
+                        industry: { type: string }
+                        link: { type: string }
+                  count: { type: integer }
+                  total_matches: { type: integer }
+                  truncated: { type: boolean }
+        "400":
+          description: Invalid parameter.
+        "503":
+          description: Catalog unavailable. Tell the user the search failed.
