@@ -119,9 +119,14 @@ Rode tudo dentro de `infra/`.
 2. **Primeiro plan.** `terraform plan`. Conte os recursos. Quais vêm de
    `for_each` (endereço com `["case-studies/..."]`) e quais de `count` (`[0]`)?
 3. **Opcional ligado.** `terraform plan -var enable_guardrail=true`. O que entra?
-4. **Change vs replacement.** `terraform plan -var chunk_max_tokens=500` e depois
-   `terraform plan -var embedding_dimensions=512`. Qual altera no lugar, qual
-   recria, e por quê? (Boa pergunta de entrevista.)
+4. **Raio de replacement.** Depois do primeiro apply (sem state, tudo é
+   create): `terraform plan -var chunk_max_tokens=500` e depois
+   `terraform plan -var embedding_dimensions=512`. Os dois recriam: chunking
+   e dimensão são imutáveis na API, e o provider marca esses atributos como
+   ForceNew. A diferença é a cascata: o chunking recria só o data source; a
+   dimensão recria o índice, e o ARN novo recria a KB, cujo ID novo recria o
+   data source. Procure `# forces replacement` no plan. (Boa pergunta de
+   entrevista.)
 5. **Renomear sem destruir.** Troque `aws_dynamodb_table.catalog` por
    `.products`, rode o plan (destroy + create). Adicione
    `moved { from = aws_dynamodb_table.catalog  to = aws_dynamodb_table.products }`
