@@ -1,0 +1,12 @@
+{"id": "cs-retail-pt", "question": "Quais cases temos em varejo?", "expect": {"tool": "/case-studies", "params": {"industry": "^retail$"}}}
+{"id": "cs-retail-en", "question": "Show me our retail case studies.", "expect": {"tool": "/case-studies", "params": {"industry": "^retail$"}}}
+{"id": "cs-fsi-pt", "question": "Tem algum case com bancos?", "expect": {"tool": "/case-studies", "params": {"industry": "^financial services$"}}}
+{"id": "cs-genai", "question": "Liste os cases de IA generativa.", "expect": {"tool": "/case-studies", "params": {"solution": "^generative ai$"}}}
+{"id": "cs-energy-genai", "question": "Cases de GenAI no setor de energia, com link.", "expect": {"tool": "/case-studies", "params": {"industry": "^energy$", "solution": "^generative ai$"}}}
+{"id": "sm-first-call", "question": "Preciso de um deck de primeira reunião.", "expect": {"tool": "/strategic-materials", "params": {"tag": "first"}}}
+{"id": "sm-genai-deck", "question": "Onde está o sales deck de Generative AI?", "expect": {"tool": "/strategic-materials", "params": {"solution": "^generative ai$"}}}
+{"id": "sp-roi", "question": "Temos calculadora de ROI?", "expect": {"tool": "/support-materials", "params": {"query": "roi"}}}
+{"id": "sp-proposal-platform", "question": "I need a proposal template for a data platform project.", "expect": {"tool": "/support-materials", "params": {"solution": "^data platform$"}}}
+{"id": "kb-acme-results", "question": "Qual foi o resultado do projeto de descrição de produtos da Acme Retail?", "expect": {"tool": "knowledge_base"}}
+{"id": "kb-roi-formula", "question": "Como a calculadora de ROI de GenAI calcula o payback?", "expect": {"tool": "knowledge_base"}}
+{"id": "none-offtopic", "question": "Qual a capital da França?", "expect": {"tool": "none"}}
