@@ -1,0 +1,23 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+infra/backend.tf
+infra/build/
+crash.log
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+# Avaliação
+eval/results/
+
+# Local
+.env
+.DS_Store
+CLAUDE.md
