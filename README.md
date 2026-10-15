@@ -107,6 +107,7 @@ make tf-plan
 make tf-apply      # cria tudo e sobe os documentos; o evento do S3 dispara a ingestão
 make seed-aws      # carrega o catálogo na tabela
 make sync-kb       # opcional: força a ingestão e mostra estatísticas
+make retrieve Q="case de varejo"   # testa a KB sem o agente: score e documento
 make chat          # conversa com o DRAFT e mostra cada ferramenta chamada
 make eval          # golden set: acerto de ferramenta e de parâmetros
 make release       # congela o DRAFT atual no alias 'live'

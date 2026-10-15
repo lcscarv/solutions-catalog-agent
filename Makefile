@@ -3,7 +3,7 @@ TF := terraform -chdir=infra
 PY := PYTHONPATH=src uv run python
 
 .PHONY: help install up down seed-local test test-all lint fmt invoke \
-        tf-init tf-plan tf-apply tf-destroy seed-aws sync-kb prepare release chat eval
+        tf-init tf-plan tf-apply tf-destroy seed-aws sync-kb retrieve prepare release chat eval
 
 help:
 	@grep -E '^[a-z-]+:.*?## ' $(MAKEFILE_LIST) | awk -F':.*?## ' '{printf "  %-12s %s\n", $$1, $$2}'
@@ -56,6 +56,9 @@ seed-aws: ## carrega o catálogo na tabela da AWS
 
 sync-kb: ## ingestão manual da KB, espera terminar
 	$(PY) scripts/agent_ops.py sync-kb
+
+retrieve: ## busca direto na KB, sem agente. Ex.: make retrieve Q="case de varejo"
+	$(PY) scripts/agent_ops.py retrieve "$(Q)"
 
 prepare: ## recompila o DRAFT do agente
 	$(PY) scripts/agent_ops.py prepare
