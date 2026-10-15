@@ -1,0 +1,11 @@
+# State remoto com lock. O bucket precisa existir antes (crie à mão, uma vez,
+# com versionamento ligado). use_lockfile substitui a tabela DynamoDB de lock.
+terraform {
+  backend "s3" {
+    bucket       = "<seu-bucket-de-state>"
+    key          = "solutions-catalog/dev/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
+  }
+}

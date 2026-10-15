@@ -1,0 +1,11 @@
+# Copie para terraform.tfvars (ignorado pelo git) e ajuste.
+region           = "us-east-1"
+environment      = "dev"
+foundation_model = "us.amazon.nova-lite-v1:0"
+
+# Recomendo ligar na primeira vez: avisa por e-mail antes de passar do teto.
+budget_email     = "voce@exemplo.com"
+budget_limit_usd = 5
+
+enable_auto_ingestion = true
+enable_guardrail      = false
