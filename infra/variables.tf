@@ -57,6 +57,12 @@ variable "enable_auto_ingestion" {
   default     = true
 }
 
+variable "enable_agent" {
+  description = "Cria o agente Bedrock Agents Classic. Contas sem uso prévio recebem 403 no CreateAgent (maintenance mode desde 2026-07-30)."
+  type        = bool
+  default     = false
+}
+
 variable "enable_guardrail" {
   description = "Liga um Bedrock Guardrail (prompt attack e PII). Cobra por texto avaliado."
   type        = bool

@@ -65,7 +65,7 @@
 | `providers.tf` | `default_tags` e data sources de identidade da conta |
 
 ### Dependências implícitas e explícitas
-- **Implícita:** em `lambda_action.tf`, `source_arn = aws_bedrockagent_agent.this.agent_arn`.
+- **Implícita:** em `lambda_action.tf`, `source_arn = aws_bedrockagent_agent.this[0].agent_arn`.
   Referenciar já ordena.
 - **`depends_on`** existe porque o Terraform não enxerga efeito colateral. Três
   casos no projeto, cada um com um motivo:

@@ -45,10 +45,12 @@ resource "aws_lambda_function" "catalog_action" {
 
 # A condição é o ARN do agente, que é o que o Bedrock envia como SourceArn.
 resource "aws_lambda_permission" "bedrock_invoke_catalog_action" {
+  count = var.enable_agent ? 1 : 0
+
   statement_id   = "AllowBedrockAgentInvoke"
   action         = "lambda:InvokeFunction"
   function_name  = aws_lambda_function.catalog_action.function_name
   principal      = "bedrock.amazonaws.com"
   source_account = local.account_id
-  source_arn     = aws_bedrockagent_agent.this.agent_arn
+  source_arn     = aws_bedrockagent_agent.this[0].agent_arn
 }

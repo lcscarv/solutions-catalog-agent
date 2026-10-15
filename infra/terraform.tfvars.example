@@ -9,3 +9,6 @@ budget_limit_usd = 5
 
 enable_auto_ingestion = true
 enable_guardrail      = false
+
+# Bedrock Agents Classic está em maintenance mode: conta nova não cria agente.
+enable_agent = false

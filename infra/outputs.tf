@@ -2,13 +2,14 @@ output "region" {
   value = var.region
 }
 
+# one() devolve null quando o count é 0, em vez de erro.
 output "agent_id" {
-  value = aws_bedrockagent_agent.this.agent_id
+  value = one(aws_bedrockagent_agent.this[*].agent_id)
 }
 
 output "agent_alias_id" {
   description = "Alias 'live'. Para desenvolvimento use TSTALIASID (DRAFT)."
-  value       = aws_bedrockagent_agent_alias.live.agent_alias_id
+  value       = one(aws_bedrockagent_agent_alias.live[*].agent_alias_id)
 }
 
 output "knowledge_base_id" {

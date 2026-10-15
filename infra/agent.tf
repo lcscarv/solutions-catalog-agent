@@ -1,4 +1,9 @@
+# Bedrock Agents Classic: em maintenance mode desde 2026-07-30, conta sem uso
+# prévio recebe 403 no CreateAgent. Por isso o agente e o que depende dele
+# ficam atrás de var.enable_agent. O substituto é o AgentCore.
 resource "aws_bedrockagent_agent" "this" {
+  count = var.enable_agent ? 1 : 0
+
   agent_name                  = "${local.name}-agent"
   description                 = "Assistente do catálogo de soluções para vendas e pré-vendas."
   agent_resource_role_arn     = aws_iam_role.agent.arn
@@ -19,7 +24,9 @@ resource "aws_bedrockagent_agent" "this" {
 }
 
 resource "aws_bedrockagent_agent_knowledge_base_association" "docs" {
-  agent_id             = aws_bedrockagent_agent.this.agent_id
+  count = var.enable_agent ? 1 : 0
+
+  agent_id             = aws_bedrockagent_agent.this[0].agent_id
   agent_version        = "DRAFT"
   knowledge_base_id    = aws_bedrockagent_knowledge_base.docs.id
   knowledge_base_state = "ENABLED"
@@ -27,7 +34,9 @@ resource "aws_bedrockagent_agent_knowledge_base_association" "docs" {
 }
 
 resource "aws_bedrockagent_agent_action_group" "catalog" {
-  agent_id                   = aws_bedrockagent_agent.this.agent_id
+  count = var.enable_agent ? 1 : 0
+
+  agent_id                   = aws_bedrockagent_agent.this[0].agent_id
   agent_version              = "DRAFT"
   action_group_name          = "catalog"
   description                = "Busca somente leitura no catálogo: cases, materiais estratégicos e de suporte."
@@ -55,7 +64,9 @@ resource "aws_bedrockagent_agent_action_group" "catalog" {
 # no momento em que é criado. Para publicar mudanças: `make release`.
 # Para desenvolver, use o alias de teste TSTALIASID, que aponta para DRAFT.
 resource "aws_bedrockagent_agent_alias" "live" {
-  agent_id         = aws_bedrockagent_agent.this.agent_id
+  count = var.enable_agent ? 1 : 0
+
+  agent_id         = aws_bedrockagent_agent.this[0].agent_id
   agent_alias_name = "live"
   description      = "Versão publicada."
 

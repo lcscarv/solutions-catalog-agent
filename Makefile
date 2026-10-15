@@ -61,7 +61,7 @@ prepare: ## recompila o DRAFT do agente
 	$(PY) scripts/agent_ops.py prepare
 
 release: ## publica o DRAFT atual numa nova versão do alias 'live'
-	$(TF) apply -replace=aws_bedrockagent_agent_alias.live
+	$(TF) apply -replace='aws_bedrockagent_agent_alias.live[0]'
 
 chat: ## conversa com o agente (DRAFT)
 	$(PY) scripts/chat.py
