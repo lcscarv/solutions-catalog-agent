@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -29,3 +30,18 @@ def bedrock_event(api_path: str, method: str = "GET", **params) -> dict:
         "sessionAttributes": {"user_group": "sales"},
         "promptSessionAttributes": {},
     }
+
+
+def gateway_context(tool: str, target: str = "catalog") -> SimpleNamespace:
+    """Contexto no formato que o AgentCore Gateway passa para a Lambda.
+
+    O evento é só o dicionário de argumentos; o nome da tool vem aqui, com o
+    nome do target como prefixo.
+    """
+    custom = {
+        "bedrockAgentCoreMessageVersion": "1.0",
+        "bedrockAgentCoreToolName": f"{target}___{tool}",
+        "bedrockAgentCoreGatewayId": "gw-test",
+        "bedrockAgentCoreTargetId": "tg-test",
+    }
+    return SimpleNamespace(client_context=SimpleNamespace(custom=custom))
