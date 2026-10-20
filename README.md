@@ -52,6 +52,8 @@ gerados pelo modelo. A KB entra só para detalhe de dentro de um documento.
 | Sem alias nem versão | Alias `live` congelado; `make release` publica; desenvolvimento no `TSTALIASID` | [agent.tf](infra/agent.tf) |
 | Sem avaliação | Golden set com ferramenta e parâmetros esperados, lidos do trace; `--repeat` mede variância | [eval/](eval/) |
 | State sem lock, CI apontando para stacks inexistentes | `backend.tf.example` com `use_lockfile`; CI roda lint, testes com DynamoDB Local, `validate` e tflint | [infra/backend.tf.example](infra/backend.tf.example), [.github/workflows/ci.yml](.github/workflows/ci.yml) |
+| Agente no Bedrock Agents (em maintenance mode desde 2026-07-30: conta nova não cria agente) | Migração para AgentCore: Gateway MCP com auth IAM expondo as Lambdas como tools; a mesma Lambda do catálogo atende os dois formatos | [infra/gateway.tf](infra/gateway.tf), [gateway_io.py](src/catalog_action/gateway_io.py) |
+| KB consultada só pelo texto: um deck genérico vencia o case específico | Tool `search_documents` com filtro de metadado (`asset_type`, `industry`) escolhido pelo modelo | [src/docs_search/](src/docs_search/), [contracts/docs_tools.json](contracts/docs_tools.json) |
 | Credenciais estáticas em `.env` | Use `aws configure sso` ou um perfil; nada de chave no repositório | abaixo |
 
 ## Custo
@@ -62,7 +64,8 @@ sessão de testes. O resto foi desenhado para caber no "always free".
 
 | Serviço | Uso aqui | Free tier |
 |---|---|---|
-| Lambda | 2 funções, poucas invocações | Sim (1M req/mês) |
+| Lambda | 3 funções, poucas invocações | Sim (1M req/mês) |
+| AgentCore Gateway | US$ 0,005 por mil chamadas de tool | Não, mas centavos |
 | DynamoDB | Tabela provisionada 2 RCU / 1 WCU | Sim (25 RCU/WCU, 25 GB) |
 | CloudWatch Logs | Retenção de 7 dias | Sim (5 GB) |
 | S3 | Alguns KB de documentos | Contas novas usam créditos do plano gratuito |
@@ -108,6 +111,8 @@ make tf-apply      # cria tudo e sobe os documentos; o evento do S3 dispara a in
 make seed-aws      # carrega o catálogo na tabela
 make sync-kb       # opcional: força a ingestão e mostra estatísticas
 make retrieve Q="case de varejo"   # testa a KB sem o agente: score e documento
+make tools        # lista as tools do Gateway, falando MCP direto (sem agente)
+make tool T=docs___search_documents A='{"query":"varejo","asset_type":"case_study"}'
 make chat          # conversa com o DRAFT e mostra cada ferramenta chamada
 make eval          # golden set: acerto de ferramenta e de parâmetros
 make release       # congela o DRAFT atual no alias 'live'
