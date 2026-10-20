@@ -1,0 +1,65 @@
+[
+  {
+    "name": "search_case_studies",
+    "description": "Lists client case studies, filtered by industry and/or solution. Use it to show past projects or to find the link to a case study. Every filter is optional, partial and case-insensitive.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "industry": {
+          "type": "string",
+          "description": "Client industry. One of: Retail, Financial Services, Healthcare, Manufacturing, Energy. Map the user's words to one of these values (for example \"varejo\" is Retail). Leave empty if unsure."
+        },
+        "solution": {
+          "type": "string",
+          "description": "Solution line delivered in the project. One of: Generative AI, Data Platform, Analytics, MLOps, Data Strategy. Leave empty if unsure."
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of items to return (1 to 25, default 10)."
+        }
+      }
+    }
+  },
+  {
+    "name": "search_strategic_materials",
+    "description": "Lists strategic sales materials (sales decks, pitches, first-call decks), filtered by solution and/or tag. Every filter is optional, partial and case-insensitive.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "solution": {
+          "type": "string",
+          "description": "Solution line the material is about. One of: Generative AI, Data Platform, Analytics, MLOps, Data Strategy. Leave empty if unsure."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Free-text tag, matched partially. Examples: first-call, sales-deck, pitch, databricks."
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of items to return (1 to 25, default 10)."
+        }
+      }
+    }
+  },
+  {
+    "name": "search_support_materials",
+    "description": "Lists support materials (ROI calculators, proposal templates, one-pagers, questionnaires), filtered by solution and/or a free-text query over the title and description. Every filter is optional, partial and case-insensitive.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "solution": {
+          "type": "string",
+          "description": "Solution line the material supports. One of: Generative AI, Data Platform, Analytics, MLOps, Data Strategy. Leave empty if unsure."
+        },
+        "query": {
+          "type": "string",
+          "description": "Free text matched partially against title and description. Examples: ROI, proposal, one-pager."
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of items to return (1 to 25, default 10)."
+        }
+      }
+    }
+  }
+]

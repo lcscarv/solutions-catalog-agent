@@ -1,7 +1,9 @@
-"""Mapa apiPath -> tipo de ativo e filtros. Espelha contracts/catalog_api.yaml.
+"""Mapa apiPath -> tipo de ativo e filtros. Espelha contracts/catalog_api.yaml
+(Bedrock Agents) e contracts/catalog_tools.json (AgentCore Gateway).
 
-O teste de contrato (tests/test_contract.py) falha se este arquivo e o OpenAPI
-divergirem, para o schema que o modelo lê nunca mentir sobre o que o código faz.
+O teste de contrato (tests/test_contract.py) falha se este arquivo e os
+contratos divergirem, para o schema que o modelo lê nunca mentir sobre o que o
+código faz.
 """
 
 from dataclasses import dataclass
@@ -40,6 +42,13 @@ ROUTES: dict[str, Route] = {
         "support_material",
         {"solution": ("solution",), "query": ("title", "description")},
     ),
+}
+
+# Nome da tool no Gateway -> apiPath. O nome é o operationId do OpenAPI.
+TOOLS: dict[str, str] = {
+    "search_case_studies": "/case-studies",
+    "search_strategic_materials": "/strategic-materials",
+    "search_support_materials": "/support-materials",
 }
 
 
