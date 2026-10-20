@@ -178,6 +178,33 @@ resource "aws_iam_role_policy" "catalog_action" {
   policy = data.aws_iam_policy_document.catalog_action.json
 }
 
+# Busca em documentos: só Retrieve nesta KB. Não lê o bucket nem o índice
+# direto; quem acessa o vetor é a KB, com a role dela.
+data "aws_iam_policy_document" "docs_search" {
+  statement {
+    sid       = "RetrieveFromKnowledgeBase"
+    actions   = ["bedrock:Retrieve"]
+    resources = [aws_bedrockagent_knowledge_base.docs.arn]
+  }
+
+  statement {
+    sid       = "WriteOwnLogs"
+    actions   = ["logs:CreateLogStream", "logs:PutLogEvents"]
+    resources = ["${aws_cloudwatch_log_group.docs_search.arn}:*"]
+  }
+}
+
+resource "aws_iam_role" "docs_search" {
+  name               = "${local.name}-docs-search"
+  assume_role_policy = data.aws_iam_policy_document.lambda_trust.json
+}
+
+resource "aws_iam_role_policy" "docs_search" {
+  name   = "docs-search"
+  role   = aws_iam_role.docs_search.id
+  policy = data.aws_iam_policy_document.docs_search.json
+}
+
 data "aws_iam_policy_document" "kb_ingest" {
   count = var.enable_auto_ingestion ? 1 : 0
 
@@ -205,4 +232,52 @@ resource "aws_iam_role_policy" "kb_ingest" {
   name   = "kb-ingest"
   role   = aws_iam_role.kb_ingest[0].id
   policy = data.aws_iam_policy_document.kb_ingest[0].json
+}
+
+# --- AgentCore Gateway --------------------------------------------------------
+
+data "aws_iam_policy_document" "gateway_trust" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["bedrock-agentcore.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values   = [local.account_id]
+    }
+
+    condition {
+      test     = "ArnLike"
+      variable = "aws:SourceArn"
+      values   = ["arn:${local.partition}:bedrock-agentcore:${var.region}:${local.account_id}:gateway/*"]
+    }
+  }
+}
+
+# O Gateway só invoca as duas Lambdas das tools.
+data "aws_iam_policy_document" "gateway" {
+  statement {
+    sid     = "InvokeToolLambdas"
+    actions = ["lambda:InvokeFunction"]
+    resources = [
+      aws_lambda_function.catalog_action.arn,
+      aws_lambda_function.docs_search.arn,
+    ]
+  }
+}
+
+resource "aws_iam_role" "gateway" {
+  name               = "${local.name}-gateway"
+  assume_role_policy = data.aws_iam_policy_document.gateway_trust.json
+}
+
+resource "aws_iam_role_policy" "gateway" {
+  name   = "gateway"
+  role   = aws_iam_role.gateway.id
+  policy = data.aws_iam_policy_document.gateway.json
 }
