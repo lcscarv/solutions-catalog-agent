@@ -1,6 +1,6 @@
 import json
 
-from catalog_action import bedrock_io
+from catalog_action import payload
 from catalog_action.catalog import CatalogError, InMemoryCatalog
 from catalog_action.handler import lambda_handler
 
@@ -59,7 +59,7 @@ def test_no_match_adds_note(catalog):
 
 
 def test_large_result_is_cut_to_fit(monkeypatch):
-    monkeypatch.setattr(bedrock_io, "MAX_BODY_BYTES", 600)
+    monkeypatch.setattr(payload, "MAX_BODY_BYTES", 600)
     items = [
         {"asset_type": "case_study", "asset_id": f"cs-{n:03}", "title": "x" * 80} for n in range(20)
     ]

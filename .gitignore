@@ -21,3 +21,6 @@ eval/results/
 .env
 .DS_Store
 CLAUDE.md
+
+# Saídas locais do Terraform
+infra/graph.*

@@ -1,0 +1,28 @@
+[
+  {
+    "name": "search_documents",
+    "description": "Semantic search over the full text of the catalog documents (case studies, sales decks, support guides). Use it for questions about content: context, results, how a project was done, how to use a material. Returns the most relevant passages with their source document. To list items or get links, use the catalog tools instead.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "What to look for, in the user's own words."
+        },
+        "asset_type": {
+          "type": "string",
+          "description": "Restrict the search to one document type. One of: case_study, strategic_material, support_material. Set it whenever the user names the type (for example \"case\" is case_study, \"deck\" is strategic_material). Leave empty if unsure."
+        },
+        "industry": {
+          "type": "string",
+          "description": "Restrict the search to one client industry; only case studies have it. One of: Retail, Financial Services, Healthcare, Manufacturing, Energy. Leave empty if unsure."
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of passages to return (1 to 10, default 5)."
+        }
+      },
+      "required": ["query"]
+    }
+  }
+]

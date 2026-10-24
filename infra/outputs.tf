@@ -31,3 +31,16 @@ output "docs_bucket" {
 output "catalog_action_function" {
   value = aws_lambda_function.catalog_action.function_name
 }
+
+output "docs_search_function" {
+  value = aws_lambda_function.docs_search.function_name
+}
+
+output "gateway_id" {
+  value = aws_bedrockagentcore_gateway.tools.gateway_id
+}
+
+output "gateway_url" {
+  description = "Endpoint MCP do Gateway (auth IAM)."
+  value       = aws_bedrockagentcore_gateway.tools.gateway_url
+}

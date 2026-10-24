@@ -3,7 +3,8 @@ TF := terraform -chdir=infra
 PY := PYTHONPATH=src uv run python
 
 .PHONY: help install up down seed-local test test-all lint fmt invoke \
-        tf-init tf-plan tf-apply tf-destroy seed-aws sync-kb retrieve prepare release chat eval
+        tf-init tf-plan tf-apply tf-destroy seed-aws sync-kb retrieve tools tool \
+        prepare release chat eval
 
 help:
 	@grep -E '^[a-z-]+:.*?## ' $(MAKEFILE_LIST) | awk -F':.*?## ' '{printf "  %-12s %s\n", $$1, $$2}'
@@ -59,6 +60,12 @@ sync-kb: ## ingestão manual da KB, espera terminar
 
 retrieve: ## busca direto na KB, sem agente. Ex.: make retrieve Q="case de varejo"
 	$(PY) scripts/agent_ops.py retrieve "$(Q)"
+
+tools: ## lista as tools do Gateway (MCP direto, sem agente)
+	$(PY) scripts/gateway_call.py list
+
+tool: ## chama uma tool do Gateway. Ex.: make tool T=docs___search_documents A='{"query":"varejo"}'
+	$(PY) scripts/gateway_call.py call "$(T)" '$(or $(A),{})'
 
 prepare: ## recompila o DRAFT do agente
 	$(PY) scripts/agent_ops.py prepare
